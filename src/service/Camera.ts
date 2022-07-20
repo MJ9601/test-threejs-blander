@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Service from "./Service";
 
 export default class Camera {
@@ -9,6 +10,7 @@ export default class Camera {
   orthCamera?: THREE.OrthographicCamera;
   frustrum?: number;
   perCamera?: THREE.PerspectiveCamera;
+  controls?: OrbitControls;
 
   constructor() {
     this.service = new Service();
@@ -19,6 +21,13 @@ export default class Camera {
 
     this.createPerspectiveCamera();
     this.createOrthoCamera();
+    this.setOrbitControl();
+  }
+
+  setOrbitControl() {
+    this.controls = new OrbitControls(this.perCamera!, this.canvas);
+    this.controls.enableDamping = true;
+    this.controls.enableZoom = true;
   }
 
   createPerspectiveCamera() {
@@ -29,6 +38,7 @@ export default class Camera {
       1000
     );
     this.scene?.add(this.perCamera);
+    this.perCamera.position.set(-25, 25, 35);
   }
 
   createOrthoCamera() {
@@ -54,5 +64,7 @@ export default class Camera {
     this.orthCamera?.updateProjectionMatrix();
   }
 
-  update() {}
+  update() {
+    this.controls?.update();
+  }
 }

@@ -38,7 +38,7 @@ export default class Camera {
       1000
     );
     this.scene?.add(this.perCamera);
-    this.perCamera.position.set(-25, 25, 35);
+    this.perCamera.position.set(-3, 3, 3.5);
   }
 
   createOrthoCamera() {

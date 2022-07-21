@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "@types/dat.gui": "^0.7.7",
     "@types/lodash": "^4.14.182",
     "@types/node": "^18.0.6",
     "@types/three": "^0.141.0",

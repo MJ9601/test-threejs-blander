@@ -50,9 +50,10 @@ export default class Room {
         });
 
       // console.log(child);
-      if (child.name === "aqu") {
+      if (lamps.find((name) => child.name == name)) {
         let material = get(child, "material") as THREE.MeshPhysicalMaterial;
         material = new THREE.MeshPhysicalMaterial();
+
         material.color.set(0x549dd2);
         material.ior = 3;
         material.transmission = 1;
@@ -60,12 +61,40 @@ export default class Room {
         material.roughness = 0;
         material.side = THREE.DoubleSide;
         // console.log(child.material)
-        // @ts-ignore
-        child.material = material;
-        console.log(child);
-      }
+        if (child instanceof THREE.Group) {
+          child.children.forEach((groupChild) => {
+            let material = get(child, "material") as THREE.MeshPhysicalMaterial;
+            material = new THREE.MeshPhysicalMaterial();
 
-      if (lamps.find((name) => child.name == name)) console.log(child);
+            material.color.set(0x40e0d0);
+            material.ior = 3;
+            material.transmission = 1;
+            material.opacity = 1;
+            material.roughness = 0;
+            material.side = THREE.DoubleSide;
+            // console.log(child.material)
+            // @ts-ignore
+            groupChild.material = material;
+          });
+        }
+        if (child instanceof THREE.Mesh) {
+          let material = get(child, "material") as THREE.MeshPhysicalMaterial;
+          material = new THREE.MeshPhysicalMaterial();
+
+          material.color.set(0x549dd2);
+          material.ior = 3;
+          material.transmission = 1;
+          material.opacity = 1;
+          material.roughness = 0;
+          material.side = THREE.DoubleSide;
+          if (child.name === "aqu") material.color.set(0x549dd2);
+          else material.color.set(0xffaa00);
+          // @ts-ignore
+          child.material = material;
+
+          console.log(child);
+        }
+      }
     });
   }
 

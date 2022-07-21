@@ -6,6 +6,9 @@ import Size from "./utils/Size";
 import Time from "./utils/Time";
 import assets, { Assets } from "./utils/assets";
 import Resouces from "./utils/Resources";
+import * as dat from "dat.gui";
+import Environment from "./objects/Environment";
+import Gui from "./utils/Gui";
 
 const canvas = document.querySelector<HTMLCanvasElement>("#three")!;
 
@@ -20,6 +23,8 @@ export default class Service {
   world?: World;
   assets?: Assets;
   resources?: Resouces;
+  Gui?: Gui;
+  environment?: Environment;
 
   constructor() {
     if (Service.instance) return Service.instance;
@@ -34,6 +39,8 @@ export default class Service {
     this.camera = new Camera();
     this.renderer = new Renderer();
     this.resources = new Resouces();
+    this.environment = new Environment();
+    this.Gui = new Gui();
 
     this.world = new World();
 

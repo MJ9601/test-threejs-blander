@@ -1,5 +1,5 @@
 export default {
-  glbFiles: [{ name: "room", path: "/assets/models/portfolio2.glb" }],
+  glbFiles: [{ name: "room", path: "/assets/models/portfolio4.glb" }],
   images: [{ name: "image1", path: "/assets/images/image.jpg" }],
   videos: [{ name: "starwars", path: "/assets/videos/starwars.mp4" }],
 };

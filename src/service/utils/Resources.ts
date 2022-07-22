@@ -1,5 +1,5 @@
 import { EventEmitter } from "events";
-import { GLTF, GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 import * as THREE from "three";
 
@@ -23,7 +23,6 @@ export default class Resouces extends EventEmitter {
   }[] = [];
   images: {
     name: string;
-    imgElement: HTMLImageElement;
     imgTexture: THREE.Texture;
   }[] = [];
 
@@ -70,17 +69,17 @@ export default class Resouces extends EventEmitter {
         });
       } else if (type == "images") {
         this.images = this.assets.images.map(({ name, path }) => {
-          const imgElement = document.createElement("img");
-          imgElement.src = path;
+          // const imgElement = document.createElement("img");
+          // imgElement.src = path;
 
-          const imgTexture = new THREE.Texture(imgElement);
+          const imgTexture = new THREE.TextureLoader().load(path);
           imgTexture.flipY = false;
           imgTexture.generateMipmaps = false;
           imgTexture.minFilter = THREE.NearestFilter;
           imgTexture.magFilter = THREE.NearestFilter;
           imgTexture.encoding = THREE.sRGBEncoding;
 
-          return { name, imgElement, imgTexture };
+          return { name, imgTexture };
         });
       }
       if (index == this.assets.glbFiles.length - 1) {

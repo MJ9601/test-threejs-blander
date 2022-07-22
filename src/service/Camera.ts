@@ -8,7 +8,6 @@ export default class Camera {
   scene: Service["scene"];
   canvas: Service["canvas"];
   orthCamera?: THREE.OrthographicCamera;
-  frustrum?: number;
   perCamera?: THREE.PerspectiveCamera;
   controls?: OrbitControls;
 
@@ -42,12 +41,11 @@ export default class Camera {
   }
 
   createOrthoCamera() {
-    this.frustrum = 5;
     this.orthCamera = new THREE.OrthographicCamera(
-      (-this.sizes?.aspect! * this.frustrum) / 2,
-      (this.sizes?.aspect! * this.frustrum) / 2,
-      this.frustrum / 2,
-      -this.frustrum / 2,
+      (-this.sizes?.aspect! * this.sizes?.frustrum!) / 2,
+      (this.sizes?.aspect! * this.sizes?.frustrum!) / 2,
+      this.sizes?.frustrum! / 2,
+      -this.sizes?.frustrum! / 2,
       -100,
       100
     );
@@ -57,10 +55,10 @@ export default class Camera {
     this.perCamera!.aspect = this.sizes?.aspect as number;
     this.perCamera?.updateProjectionMatrix();
 
-    this.orthCamera!.left = (-this.sizes?.aspect! * this.frustrum!) / 2;
-    this.orthCamera!.right = (this.sizes?.aspect! * this.frustrum!) / 2;
-    this.orthCamera!.top = this.frustrum! / 2;
-    this.orthCamera!.bottom = -this.frustrum! / 2;
+    this.orthCamera!.left = (-this.sizes?.aspect! * this.sizes?.frustrum!) / 2;
+    this.orthCamera!.right = (this.sizes?.aspect! * this.sizes?.frustrum!) / 2;
+    this.orthCamera!.top = this.sizes?.frustrum! / 2;
+    this.orthCamera!.bottom = -this.sizes?.frustrum! / 2;
     this.orthCamera?.updateProjectionMatrix();
   }
 

@@ -18,4 +18,8 @@ export default class World {
       this.room = new Room();
     });
   }
+
+  update() {
+    this.room && this.room?.update();
+  }
 }

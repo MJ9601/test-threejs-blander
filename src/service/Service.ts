@@ -6,7 +6,6 @@ import Size from "./utils/Size";
 import Time from "./utils/Time";
 import assets, { Assets } from "./utils/assets";
 import Resouces from "./utils/Resources";
-import * as dat from "dat.gui";
 import Environment from "./objects/Environment";
 import Gui from "./utils/Gui";
 
@@ -56,6 +55,7 @@ export default class Service {
   update() {
     this.camera!.update();
     this.renderer!.update();
+    this.world?.update();
   }
 
   resize() {

@@ -103,17 +103,17 @@ export default class Room {
     this.mixer = new THREE.AnimationMixer(this.room!);
 
     console.log(this.roomData);
-
-    const swim1 = this.mixer.clipAction(this.roomData!.animations[0]);
-    const swim2 = this.mixer.clipAction(this.roomData!.animations[2]);
-    swim1.play();
-    swim2.play();
-    const rotate = this.mixer.clipAction(this.roomData!.animations[1]);
-    rotate.play();
+    this.room?.animations.map((animation) =>
+      this.createAnimation(this.mixer!, animation)
+    );
   }
 
-  update() {
-    this.mixer?.update(this.time?.delta! * 0.0009);
+  createAnimation(
+    mixer: THREE.AnimationMixer,
+    animationClip: THREE.AnimationClip
+  ) {
+    const animation = mixer.clipAction(animationClip);
+    animation.play();
   }
 
   setMaterialGlass(child: THREE.Mesh, color: number) {
@@ -140,4 +140,7 @@ export default class Room {
 
   //   this.scene?.add(cube);
   // }
+  update() {
+    this.mixer?.update(this.time?.delta! * 0.0009);
+  }
 }

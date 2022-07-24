@@ -1,6 +1,5 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import { threadId } from "worker_threads";
 import Service from "./Service";
 
 export default class Camera {
@@ -48,13 +47,16 @@ export default class Camera {
       (this.sizes?.aspect! * this.sizes?.frustrum!) / 2,
       this.sizes?.frustrum! / 2,
       -this.sizes?.frustrum! / 2,
-      -15,
-      15
+      -0,
+      5
     );
     this.scene?.add(this.orthCamera);
     this.orthHelper = new THREE.CameraHelper(this.orthCamera);
     this.scene?.add(this.orthHelper);
+    this.orthCamera.position.set(2.48, 0.79, 2.55);
+    this.orthCamera.lookAt(new THREE.Vector3(3.48, 0.79, 2.55));
   }
+
   resize() {
     this.perCamera!.aspect = this.sizes?.aspect as number;
     this.perCamera?.updateProjectionMatrix();

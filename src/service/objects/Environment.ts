@@ -102,8 +102,8 @@ export default class Environment {
     // const sunlightHelper = new THREE.DirectionalLightHelper(this.sunLight!);
     // this.scene?.add(sunlightHelper);
 
-    // const lamp1Helper = new THREE.PointLightHelper(this.lamp1!, 0.1);
-    // this.scene?.add(lamp1Helper);
+    const lamp1Helper = new THREE.PointLightHelper(this.lamp1!, 0.1);
+    this.scene?.add(lamp1Helper);
   }
 
   addGui() {

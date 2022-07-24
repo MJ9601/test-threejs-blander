@@ -39,6 +39,23 @@ export default class Renderer {
   }
 
   update() {
+    this.renderer?.setViewport(0, 0, innerWidth, innerHeight);
     this.renderer!.render(this.scene!, this.camera?.perCamera!);
+
+    this.renderer?.setScissorTest(true);
+    this.renderer?.setViewport(
+      innerWidth / 3,
+      innerHeight - innerHeight / 3,
+      innerWidth / 3,
+      innerHeight / 3
+    );
+    this.renderer?.setScissor(
+      innerWidth / 3,
+      innerHeight - innerHeight / 3,
+      innerWidth / 3,
+      innerHeight / 3
+    );
+    this.renderer?.render(this.scene!, this.camera?.orthCamera!);
+    this.renderer?.setScissorTest(false);
   }
 }

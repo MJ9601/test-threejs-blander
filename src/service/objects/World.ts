@@ -1,5 +1,6 @@
 import Service from "../Service";
 import Resouces from "../utils/Resources";
+import Controls from "./Controls";
 import Environment from "./Environment";
 import Room from "./Room";
 
@@ -8,6 +9,7 @@ export default class World {
   room?: Room;
   resources: Resouces;
   environment?: Environment;
+  contorls?: Controls;
 
   constructor() {
     this.service = new Service();
@@ -16,10 +18,12 @@ export default class World {
     this.resources.on("ready", () => {
       this.environment = new Environment();
       this.room = new Room();
+      this.contorls = new Controls();
     });
   }
 
   update() {
     this.room && this.room?.update();
+    this.contorls && this.contorls?.update()
   }
 }

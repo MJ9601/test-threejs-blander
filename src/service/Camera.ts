@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { threadId } from "worker_threads";
 import Service from "./Service";
 
 export default class Camera {
@@ -10,6 +11,7 @@ export default class Camera {
   orthCamera?: THREE.OrthographicCamera;
   perCamera?: THREE.PerspectiveCamera;
   controls?: OrbitControls;
+  orthHelper?: THREE.CameraHelper;
 
   constructor() {
     this.service = new Service();
@@ -37,7 +39,7 @@ export default class Camera {
       1000
     );
     this.scene?.add(this.perCamera);
-    this.perCamera.position.set(-3, 3, 3.5);
+    this.perCamera.position.set(-6, 6, 6.5);
   }
 
   createOrthoCamera() {
@@ -46,10 +48,12 @@ export default class Camera {
       (this.sizes?.aspect! * this.sizes?.frustrum!) / 2,
       this.sizes?.frustrum! / 2,
       -this.sizes?.frustrum! / 2,
-      -100,
-      100
+      -15,
+      15
     );
     this.scene?.add(this.orthCamera);
+    this.orthHelper = new THREE.CameraHelper(this.orthCamera);
+    this.scene?.add(this.orthHelper);
   }
   resize() {
     this.perCamera!.aspect = this.sizes?.aspect as number;
@@ -64,5 +68,9 @@ export default class Camera {
 
   update() {
     this.controls?.update();
+    this.orthHelper!.matrixWorldNeedsUpdate = true;
+    this.orthHelper?.update();
+    this.orthHelper?.position.copy(this.orthCamera?.position!);
+    this.orthHelper?.rotation.copy(this.orthCamera?.rotation!);
   }
 }

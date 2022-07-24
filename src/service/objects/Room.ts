@@ -128,6 +128,11 @@ export default class Room {
     child.material = material;
   }
 
+  setMaterialTexture(child: THREE.Mesh, texture: THREE.Texture) {
+    const material = new THREE.MeshBasicMaterial({ map: texture });
+    child.material = material;
+  }
+
   // createCube() {
   //   const geometry = new THREE.BoxGeometry(1, 1, 1);
   //   const materail = new THREE.MeshBasicMaterial({ color: 0xffffff });
